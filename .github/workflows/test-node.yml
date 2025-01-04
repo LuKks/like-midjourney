@@ -21,3 +21,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
     - run: npm test
+    env:
+      MIDJOURNEY_COOKIES: ${{ secrets.MIDJOURNEY_COOKIES  }}
+      MIDJOURNEY_CHANNEL_ID: ${{ secrets.MIDJOURNEY_CHANNEL_ID }}
