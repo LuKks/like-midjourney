@@ -1,7 +1,7 @@
 {
   "name": "like-midjourney",
   "version": "0.0.1",
-  "description": "",
+  "description": "MidJourney API wrapper for Node.js",
   "main": "index.js",
   "files": [],
   "scripts": {
