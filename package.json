@@ -1,0 +1,28 @@
+{
+  "name": "like-midjourney",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "files": [],
+  "scripts": {
+    "test": "standard && brittle test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lukks/like-midjourney.git"
+  },
+  "author": "Lucas Barrena (LuKks)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lukks/like-midjourney/issues"
+  },
+  "homepage": "https://github.com/lukks/like-midjourney#readme",
+  "devDependencies": {
+    "brittle": "^3.3.2",
+    "dotenv": "^16.4.7",
+    "standard": "^17.1.0"
+  },
+  "dependencies": {
+    "got-scraping": "^4.0.8"
+  }
+}
