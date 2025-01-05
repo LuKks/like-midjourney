@@ -20,9 +20,20 @@ module.exports = class Midjourney {
     const response = await got(API_URL + pathname, {
       method: 'POST',
       headers: {
+        accept: '*/*',
+        'accept-language': 'en-US,en;q=0.7',
         'content-type': 'application/json',
+        priority: 'u=1, i',
+        'sec-ch-ua': '"Brave";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Linux"',
+        'sec-fetch-dest': 'empty',
+        'sec-fetch-mode': 'cors',
+        'sec-fetch-site': 'same-origin',
+        'sec-gpc': '1',
         'x-csrf-protection': '1',
-        cookie: this.cookies
+        cookie: this.cookies,
+        Referer: 'https://www.midjourney.com/imagine'
       },
       body: opts.body ? JSON.stringify(opts.body) : null
     })
@@ -44,8 +55,22 @@ module.exports = class Midjourney {
     const response = await got(CDN_URL + '/' + id + '/0_' + index + '.png', {
       method: opts.method ? opts.method : 'GET',
       headers: {
-        'cache-control': 'no-cache',
-        pragma: 'no-cache'
+        accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+        'accept-language': 'en-US,en;q=0.7',
+        'cache-control': 'max-age=0',
+        pragma: 'no-cache',
+        priority: 'u=0, i',
+        'sec-ch-ua': '"Brave";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
+        'sec-ch-ua-mobile': '?0',
+        'sec-ch-ua-platform': '"Linux"',
+        'sec-fetch-dest': 'document',
+        'sec-fetch-mode': 'navigate',
+        'sec-fetch-site': 'same-site',
+        'sec-fetch-user': '?1',
+        'sec-gpc': '1',
+        'upgrade-insecure-requests': '1',
+        Referer: 'https://www.midjourney.com/',
+        'Referrer-Policy': 'origin-when-cross-origin'
       }
     })
 
