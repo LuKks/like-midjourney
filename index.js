@@ -81,13 +81,13 @@ module.exports = class Midjourney {
     let attempts = 0
 
     while (true) {
-      if (++attempts === 30) {
-        throw new Error('Image generation timed out')
-      }
-
       const first = await this.cdn(job.job_id, 0)
 
       if (first === null) {
+        if (++attempts === 30) {
+          throw new Error('Image generation timed out')
+        }
+
         await new Promise(resolve => setTimeout(resolve, 2000))
 
         continue
