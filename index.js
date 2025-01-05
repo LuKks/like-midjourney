@@ -40,6 +40,10 @@ module.exports = class Midjourney {
 
     const data = JSON.parse(response.body)
 
+    if (data.error) {
+      throw new Error('API failed with an error: ' + data.error)
+    }
+
     return data
   }
 
@@ -97,9 +101,9 @@ module.exports = class Midjourney {
     })
 
     if (data.failure.length > 0) {
-      // TODO
-      console.error(data.failure)
-      throw new Error('There was a failure')
+      const err = data.failure[0]
+
+      throw new Error(err.type + ': ' + err.message)
     }
 
     const job = data.success[0]
