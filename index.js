@@ -36,12 +36,18 @@ module.exports = class Midjourney {
     return data
   }
 
-  async cdn (id, index) {
+  async cdn (id, index, opts = {}) {
     if (got === null) {
       got = await importGot()
     }
 
-    const response = await got(CDN_URL + '/' + id + '/0_' + index + '.png')
+    const response = await got(CDN_URL + '/' + id + '/0_' + index + '.png', {
+      method: opts.method ? opts.method : 'GET',
+      headers: {
+        'cache-control': 'no-cache',
+        pragma: 'no-cache'
+      }
+    })
 
     if (response.statusCode === 403 || response.statusCode === 404) {
       return null
@@ -78,13 +84,22 @@ module.exports = class Midjourney {
     }
 
     const job = data.success[0]
-    let attempts = 0
 
+    await this._waitForJobImage(job.job_id, 0)
+    await this._waitForJobImage(job.job_id, 1)
+    await this._waitForJobImage(job.job_id, 2)
+    await this._waitForJobImage(job.job_id, 3)
+
+    return job.job_id
+  }
+
+  async _waitForJobImage (id, index) {
     while (true) {
-      const first = await this.cdn(job.job_id, 0)
+      const image = await this.cdn(id, index, { method: 'HEAD' })
+      let attempts = 0
 
-      if (first === null) {
-        if (++attempts === 30) {
+      if (image === null) {
+        if (++attempts === 60) {
           throw new Error('Image generation timed out')
         }
 
@@ -95,8 +110,6 @@ module.exports = class Midjourney {
 
       break
     }
-
-    return job.job_id
   }
 }
 
