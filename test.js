@@ -7,7 +7,7 @@ dotenv.config()
 test('basic', { timeout: 90000 }, async function (t) {
   const midjourney = new Midjourney()
 
-  const id = await midjourney.imagine('Programmatic: A split-screen futuristic background highlighting a "Before vs. After" transformation')
+  const id = await midjourney.imagine('Create a random colored image.')
 
   const image1 = await midjourney.cdn(id, 0)
   const image2 = await midjourney.cdn(id, 1)
